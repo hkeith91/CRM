@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Build and test container
         run: |
           docker compose build
           docker compose run --rm web pytest
