@@ -27,4 +27,22 @@ jobs:
               exit 1
             fi
           }
-      -name: Run OWASP Dependency Check
+      - name: Run OWASP Dependency Check
+        run: |
+          docker pull owasp/dependency-check:latest
+          docker run -rm \
+            -v $(pwd):/src \
+            -v dependency-check-data:/usr/share/dependency-check/data \
+            owasp/dependency-check:latest \
+            --scan /src \
+            --format ALL \
+            --project "my-python-project" \
+            --out /src/reports \
+            --failOnCVSS 7.0 \
+            --enableExperimental
+        continu-on-error: true
+      - name: Archive OWASP Dependency Check Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: dependency-check-report
+          path: reports/dependency-check-report.html
