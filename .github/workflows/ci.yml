@@ -13,3 +13,17 @@ jobs:
         run: |
           docker compose build
           docker compose run --rm web pytest
+      - name: Run Bandit security scan
+        run: |
+          pip install bandit
+
+          bandit -r . -q -ll --exclude ./tests --exit.zero || {
+            echo "Bandit found  potential security issues."
+            echo "Scanning for medium and high severity issues that should fail the pipeline."
+            bandit -r . --exclude ./tests --levelmedium --condience medium --format custom --output ./.bandit_report.json
+            if [ -s ./.bandit_report.json ]
+            then
+              cat ./.bandit_report.json
+              exit 1
+            fi
+          }
