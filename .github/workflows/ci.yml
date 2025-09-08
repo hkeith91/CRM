@@ -15,9 +15,7 @@ jobs:
           docker compose run --rm web pytest
       - name: Run Bandit security scan
         run: |
-          pip install bandit
-
-          bandit -r . -q -ll --exclude ./tests --exit.zero || {
+          docker compose run -rm web bandit -r . -q -ll --exclude ./tests --exit.zero || {
             echo "Bandit found  potential security issues."
             echo "Scanning for medium and high severity issues that should fail the pipeline."
             bandit -r . --exclude ./tests --level medium --confidence medium --format custom --output ./.bandit_report.json
@@ -42,7 +40,7 @@ jobs:
             --enableExperimental
         continue-on-error: true
       - name: Archive OWASP Dependency Check Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dependency-check-report
           path: reports/dependency-check-report.html
