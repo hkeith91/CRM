@@ -20,10 +20,11 @@ jobs:
           bandit -r . -q -ll --exclude ./tests --exit.zero || {
             echo "Bandit found  potential security issues."
             echo "Scanning for medium and high severity issues that should fail the pipeline."
-            bandit -r . --exclude ./tests --levelmedium --confidence medium --format custom --output ./.bandit_report.json
+            bandit -r . --exclude ./tests --level medium --confidence medium --format custom --output ./.bandit_report.json
             if [ -s ./.bandit_report.json ]
             then
               cat ./.bandit_report.json
               exit 1
             fi
           }
+      -name: Run OWASP Dependency Check
