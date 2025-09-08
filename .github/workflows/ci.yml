@@ -40,7 +40,7 @@ jobs:
             --out /src/reports \
             --failOnCVSS 7.0 \
             --enableExperimental
-        continu-on-error: true
+        continue-on-error: true
       - name: Archive OWASP Dependency Check Report
         uses: actions/upload-artifact@v3
         with:
