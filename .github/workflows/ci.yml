@@ -46,13 +46,13 @@ jobs:
       - name: Trivy Container Scan
         run: |
           docker pull docker.io/aquasec/trivy
-          docker tag my_project-web:latest my_project-web-for-scan:latest
+          docker tag fastapi-crm-web:latest fastapi-crm-web-for-scan:latest
           docker run --rm \
             -v /var/run/docker.sock:/var/run/docker.sock \
             docker.io/aquasec/trivy:latest image \
             --format table --severity HIGH \
             --output reports/trivy-report.html \
-            my_project-web-for-scan:latest
+            fastapi-crm-web-for-scan:latest
         continue-on-error: true
       - name: Archive Trivy Report
         uses: actions/upload-artifact@v4
