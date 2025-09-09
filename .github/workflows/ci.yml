@@ -23,7 +23,7 @@ jobs:
               cat ./.bandit_report.json
               exit 1
             fi
-          }" 
+          }"
       - name: Run OWASP Dependency Check
         run: |
           docker pull owasp/dependency-check:latest
@@ -43,3 +43,19 @@ jobs:
         with:
           name: dependency-check-report
           path: reports/dependency-check-report.html
+      - name: Trivy Container Scan
+        run: |
+          docker pull docker.io/aquasec/trivy
+          docker tag my_project-web:latest my_project-web-for-scan:latest
+          docker run --rm \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            docker.io/aquasec/trivy:latest image \
+            --format table --severity HIGH \
+            --output reports/trivy-report.html \
+            my_project-web-for-scan:latest
+        continue-on-error: true
+      - name: Archive Trivy Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-report
+          path: reports/trivy-report.html
