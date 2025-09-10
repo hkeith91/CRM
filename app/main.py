@@ -7,7 +7,20 @@ app = FastAPI()
 
 
 # A temporary db for testing
-contact_db: List[Contact] = []
+contact_db: List[Contact] = [
+    Contact(
+        contact_id=uuid.uuid4(),
+        first_name="John",
+        last_name="Cleese",
+        email="monty@python.com",
+    ),
+    Contact(
+        contact_id=uuid.uuid4(),
+        first_name="Eric",
+        last_name="Idle",
+        email="holy@grail.com",
+    ),
+]
 
 
 @app.post("/contacts", status_code=status.HTTP_201_CREATED)
