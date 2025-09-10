@@ -1,5 +1,5 @@
 from fastapi import FastAPI, status, HTTPException
-from .models.contact import Contact
+from app.models.contact import Contact
 from typing import List
 import uuid
 
