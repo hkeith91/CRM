@@ -1,38 +1,10 @@
-from fastapi import FastAPI, status, HTTPException
 from app.models.contact import Contact
-from typing import List
 import uuid
 
-app = FastAPI()
+
+def create_contact(new_contact: Contact):
+    pass
 
 
-# A temporary db for testing
-contact_db: List[Contact] = [
-    Contact(
-        contact_id=uuid.uuid4(),
-        first_name="John",
-        last_name="Cleese",
-        email="monty@python.com",
-    ),
-    Contact(
-        contact_id=uuid.uuid4(),
-        first_name="Eric",
-        last_name="Idle",
-        email="holy@grail.com",
-    ),
-]
-
-
-@app.post("/contacts", status_code=status.HTTP_201_CREATED)
-async def create_contact(new_contact: Contact):
-    contact_db.append(new_contact)
-    return {"data": new_contact}
-
-
-@app.get("/")
 async def hello_world():
-    """
-    This function handles GET requests to the root URL.
-    Returns a simple JSON response
-    """
-    return {"message": "Hello World!"}
+    return "Hello World!"
