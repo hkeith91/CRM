@@ -6,5 +6,5 @@ def create_contact(new_contact: Contact):
     pass
 
 
-async def hello_world():
+def hello_world():
     return "Hello World!"
