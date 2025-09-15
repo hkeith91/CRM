@@ -45,5 +45,13 @@ def test_get_all_contacts(dummy_list: List[Contact]):
     pass
 
 
-def test_create_contact(empty_list: List[Contact]):
-    contacts_list = []
+def test_create_contact(empty_list: List[Contact], dummy_list: List[Contact]):
+    manager = ContactManager()
+    manager.contacts_list = empty_list
+    manager.contacts_list.append(dummy_list[0])
+
+    assert len(manager.contacts_list) == 1
+    assert manager.contacts_list[0].contact_id
+    assert manager.contacts_list[0].first_name == "John"
+    assert manager.contacts_list[0].last_name == "Doe"
+    assert manager.contacts_list[0].email == "dummy@example.com"
