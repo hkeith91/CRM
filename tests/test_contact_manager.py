@@ -46,7 +46,7 @@ def test_get_all_contacts(dummy_list: List[Contact]):
 
 
 def test_create_contact(empty_list: List[Contact]):
-    pass
+    contacts_list = []
 
 
 def test_hello_world():
