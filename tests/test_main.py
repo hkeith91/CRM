@@ -45,7 +45,7 @@ def test_get_all_contacts(dummy_list: List[Contact]):
     pass
 
 
-def test_create_client(empty_list: List[Contact]):
+def test_create_contact(empty_list: List[Contact]):
     pass
 
 
