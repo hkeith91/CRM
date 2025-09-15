@@ -1,6 +1,7 @@
 from typing import List
 from app.main import hello_world
 from app.models.contact import Contact
+from app.models.contact_manager import ContactManager
 import uuid
 import pytest
 
