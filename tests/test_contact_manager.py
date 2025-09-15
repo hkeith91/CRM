@@ -1,7 +1,6 @@
 from typing import List
-from app.main import hello_world
 from app.models.contact import Contact
-from app.models.contact_manager import ContactManager
+from app.controllers.contact_manager import ContactManager
 import uuid
 import pytest
 
@@ -48,7 +47,3 @@ def test_get_all_contacts(dummy_list: List[Contact]):
 
 def test_create_contact(empty_list: List[Contact]):
     contacts_list = []
-
-
-def test_hello_world():
-    assert hello_world() == "Hello World!"
