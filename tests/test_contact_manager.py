@@ -6,10 +6,7 @@ import pytest
 
 
 # TODO: Add test for valid phone number and email
-# TODO: call append method through ContactManager
-@pytest.fixture
-def empty_list():
-    return []
+# TODO: Add tests to test input validation
 
 
 @pytest.fixture
@@ -46,11 +43,9 @@ def test_get_all_contacts(dummy_list: List[Contact]):
     pass
 
 
-def test_create_contact(empty_list: List[Contact], dummy_list: List[Contact]):
+def test_create_contact(dummy_list: List[Contact]):
     manager = ContactManager()
-    manager.contacts_list = empty_list
-    manager.contacts_list.append(dummy_list[0])
-
+    manager.create_contact(dummy_list[0])
     assert len(manager.contacts_list) == 1
     assert manager.contacts_list[0].contact_id
     assert manager.contacts_list[0].first_name == "John"
