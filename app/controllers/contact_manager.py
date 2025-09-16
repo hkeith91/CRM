@@ -1,10 +1,10 @@
+from typing import List
 from app.models.contact import Contact
-import uuid
 
 
 class ContactManager:
-    def __init__(self):
-        contacts_list = []
 
-    def create_contact(self, new_contact: Contact, contacts_list):
-        pass
+    contacts_list = []
+
+    def create_contact(self, new_contact: Contact):
+        self.contacts_list.append(new_contact)
