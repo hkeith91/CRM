@@ -39,6 +39,12 @@ def dummy_list():
     ]
 
 
+def test_contacts_list_initializes_to_empty():
+    manager = ContactManager()
+
+    assert len(manager.contacts_list) == 0
+
+
 def test_get_all_contacts(dummy_list: List[Contact]):
     pass
 
