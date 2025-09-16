@@ -6,6 +6,7 @@ import pytest
 
 
 # TODO: Add test for valid phone number and email
+# TODO: call append method through ContactManager
 @pytest.fixture
 def empty_list():
     return []
