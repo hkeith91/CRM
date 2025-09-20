@@ -47,19 +47,19 @@ def test_contacts_list_initializes_to_empty():
 
 def test_get_all_contacts(dummy_list: List[Contact]):
     manager = ContactManager()
-    manager.contacts_list = dummy_list
+    list_to_test = manager.contacts_list = dummy_list
 
     assert len(manager.get_all_contacts()) == len(dummy_list)
 
     for i in range(len(dummy_list)):
-        assert manager.get_all_contacts()[i].contact_id == dummy_list[i].contact_id
-        assert manager.get_all_contacts()[i].first_name == dummy_list[i].first_name
-        assert manager.get_all_contacts()[i].last_name == dummy_list[i].last_name
-        assert manager.get_all_contacts()[i].email == dummy_list[i].email
-        assert manager.get_all_contacts()[i].phone == dummy_list[i].phone
-        assert manager.get_all_contacts()[i].company == dummy_list[i].company
-        assert manager.get_all_contacts()[i].industry == dummy_list[i].industry
-        assert manager.get_all_contacts()[i].notes == dummy_list[i].notes
+        assert list_to_test[i].contact_id == dummy_list[i].contact_id
+        assert list_to_test[i].first_name == dummy_list[i].first_name
+        assert list_to_test[i].last_name == dummy_list[i].last_name
+        assert list_to_test[i].email == dummy_list[i].email
+        assert list_to_test[i].phone == dummy_list[i].phone
+        assert list_to_test[i].company == dummy_list[i].company
+        assert list_to_test[i].industry == dummy_list[i].industry
+        assert list_to_test[i].notes == dummy_list[i].notes
 
 
 def test_create_contact(dummy_list: List[Contact]):
@@ -70,3 +70,8 @@ def test_create_contact(dummy_list: List[Contact]):
     assert manager.contacts_list[0].first_name == "John"
     assert manager.contacts_list[0].last_name == "Doe"
     assert manager.contacts_list[0].email == "dummy@example.com"
+
+
+def test_get_contact_by_id(dummy_list: List[Contact]):
+    manager = ContactManager()
+    manager.contacts_list = dummy_list
