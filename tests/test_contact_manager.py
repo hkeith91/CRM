@@ -13,13 +13,13 @@ import pytest
 def dummy_list():
     return [
         Contact(
-            contact_id=uuid.uuid4(),
+            contact_id=str(uuid.uuid4()),
             first_name="John",
             last_name="Doe",
             email="dummy@example.com",
         ),
         Contact(
-            contact_id=uuid.uuid4(),
+            contact_id=str(uuid.uuid4()),
             first_name="Jane",
             last_name="Smith",
             email="fake@notreal.com",
@@ -29,7 +29,7 @@ def dummy_list():
             notes=["Contact early afternoons", "birthday in March"],
         ),
         Contact(
-            contact_id=uuid.uuid4(),
+            contact_id=str(uuid.uuid4()),
             first_name="Adam",
             last_name="West",
             email="batman@justice.com",
@@ -72,6 +72,6 @@ def test_create_contact(dummy_list: List[Contact]):
     assert manager.contacts_list[0].email == "dummy@example.com"
 
 
-def test_get_contact_by_id(dummy_list: List[Contact]):
+def test_get_contact_by_id(dummy_list: List[Contact], id_to_find: str):
     manager = ContactManager()
     manager.contacts_list = dummy_list
