@@ -5,7 +5,7 @@ import uuid
 
 
 class Contact(BaseModel):
-    contact_id: uuid.UUID
+    contact_id: str
     first_name: str
     last_name: str
     email: str
