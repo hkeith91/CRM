@@ -1,9 +1,12 @@
 from pydantic import BaseModel
 from typing import Optional
 from typing import List
-import uuid
 
 
+# TODO: Add demographics
+# TODO: Add purchase history
+# TODO: Add case history
+# TODO: Add status (customer, prospect, vendor, etc)
 class Contact(BaseModel):
     contact_id: str
     first_name: str
