@@ -19,6 +19,9 @@ class Contact(BaseModel):
     notes: Optional[List[str]] = None
 
     def __eq__(self, other):
+        """
+        Checks for equality with other Contact objects.
+        """
         if not isinstance(other, Contact):
             return NotImplemented
         return (
@@ -33,7 +36,18 @@ class Contact(BaseModel):
         )
 
     def __hash__(self):
-        pass
+        """
+        Returns a hash of the Contact object based on its unique ID.
+        """
+        return hash(self.contact_id)
 
     def check_valid_email(self):
-        pass
+        """
+        Checks if the contact's email is valid using the email_validator library.
+        Returns True if valid, False otherwise.
+        """
+        try:
+            validate_email(self.email)
+            return True
+        except EmailNotValidError:
+            return False
