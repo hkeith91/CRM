@@ -66,9 +66,7 @@ def test_create_contact(dummy_list: List[Contact]):
     assert manager.contacts_list[0].email == "dummy@example.com"
 
 
-def test_get_contact_by_id_returns_correct_contact(
-    dummy_list: List[Contact], id_to_find: str
-):
+def test_get_contact_by_id_returns_correct_contact(dummy_list: List[Contact]):
     manager = ContactManager()
     manager.contacts_list = dummy_list
 
