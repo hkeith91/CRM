@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional
 from typing import List
+from email_validator import validate_email, EmailNotValidError
 
 
 # TODO: Add demographics
@@ -30,3 +31,9 @@ class Contact(BaseModel):
             and self.industry == other.industry
             and self.notes == other.notes
         )
+
+    def __hash__(self):
+        pass
+
+    def check_valid_email(self):
+        pass
