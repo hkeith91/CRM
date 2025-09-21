@@ -1,6 +1,10 @@
 from app.models.contact import Contact
 
 
+# TODO: Add __eq__ to test equality
+# TODO: get contact by id
+# TODO: update contact by id
+# TODO: delete contact
 class ContactManager:
 
     contacts_list = []
@@ -10,3 +14,11 @@ class ContactManager:
 
     def get_all_contacts(self):
         return self.contacts_list
+
+    def get_contact_by_id(self, id_to_find: str):
+        found_contact = next(
+            contact
+            for contact in self.contacts_list
+            if contact.contact_id == id_to_find
+        )
+        return found_contact
