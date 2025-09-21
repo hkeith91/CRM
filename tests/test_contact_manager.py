@@ -7,6 +7,7 @@ import pytest
 
 # TODO: Add test for valid phone number and email
 # TODO: Add tests to test input validation
+# TODO: Refactor tests to use __eq__
 
 
 @pytest.fixture
@@ -52,14 +53,7 @@ def test_get_all_contacts(dummy_list: List[Contact]):
     assert len(manager.get_all_contacts()) == len(dummy_list)
 
     for i in range(len(dummy_list)):
-        assert list_to_test[i].contact_id == dummy_list[i].contact_id
-        assert list_to_test[i].first_name == dummy_list[i].first_name
-        assert list_to_test[i].last_name == dummy_list[i].last_name
-        assert list_to_test[i].email == dummy_list[i].email
-        assert list_to_test[i].phone == dummy_list[i].phone
-        assert list_to_test[i].company == dummy_list[i].company
-        assert list_to_test[i].industry == dummy_list[i].industry
-        assert list_to_test[i].notes == dummy_list[i].notes
+        assert list_to_test[i] == dummy_list[i]
 
 
 def test_create_contact(dummy_list: List[Contact]):
@@ -72,6 +66,16 @@ def test_create_contact(dummy_list: List[Contact]):
     assert manager.contacts_list[0].email == "dummy@example.com"
 
 
-def test_get_contact_by_id(dummy_list: List[Contact], id_to_find: str):
+def test_get_contact_by_id_returns_correct_contact(
+    dummy_list: List[Contact], id_to_find: str
+):
     manager = ContactManager()
     manager.contacts_list = dummy_list
+
+    contact_to_find = dummy_list[0]
+    contact_id = contact_to_find.contact_id
+
+    found_contact = manager.get_contact_by_id(contact_id)
+
+    assert len(found_contact.__dict__) == len(contact_to_find.__dict__)
+    assert found_contact == contact_to_find
