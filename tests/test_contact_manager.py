@@ -48,22 +48,18 @@ def test_contacts_list_initializes_to_empty():
 
 def test_get_all_contacts(dummy_list: List[Contact]):
     manager = ContactManager()
-    list_to_test = manager.contacts_list = dummy_list
+    manager.contacts_list = dummy_list
 
     assert len(manager.get_all_contacts()) == len(dummy_list)
-
-    for i in range(len(dummy_list)):
-        assert list_to_test[i] == dummy_list[i]
+    assert manager.get_all_contacts() == dummy_list
 
 
 def test_create_contact(dummy_list: List[Contact]):
     manager = ContactManager()
     manager.create_contact(dummy_list[0])
+
     assert len(manager.contacts_list) == 1
-    assert manager.contacts_list[0].contact_id
-    assert manager.contacts_list[0].first_name == "John"
-    assert manager.contacts_list[0].last_name == "Doe"
-    assert manager.contacts_list[0].email == "dummy@example.com"
+    assert manager.contacts_list[0] == dummy_list[0]
 
 
 def test_get_contact_by_id_returns_correct_contact(dummy_list: List[Contact]):
