@@ -1,5 +1,5 @@
 from typing import List
-from app.models.contact import Contact
+from app.models.contact import Contact, UpdateContact
 from app.controllers.contact_manager import ContactManager
 import uuid
 import pytest
@@ -41,14 +41,14 @@ def dummy_list():
 
 @pytest.fixture
 def dummy_update():
-    return {
-        "first_name": "Jonathan",
-        "last_name": None,
-        "email": None,
-        "company": "Updated Company",
-        "industry": "Updated Industry",
-        "notes": None,
-    }
+    return UpdateContact(
+        first_name="Jonathan",
+        last_name=None,
+        email=None,
+        company="Updated Company",
+        industry="Updated Industry",
+        notes=None,
+    )
 
 
 def test_contacts_list_initializes_to_empty():
@@ -97,13 +97,18 @@ def test_get_contact_by_id_returns_none_if_not_found(dummy_list: List[Contact]):
     assert found_contact == None
 
 
-def test_update_contact_returns_true_on_success(dummy_list: List[Contact]):
+def test_update_contact_returns_true_on_success(
+    dummy_list: List[Contact], dummy_update: UpdateContact
+):
     manager = ContactManager()
     manager.contacts_list = dummy_list
+    contact_to_update = manager.contacts_list[0]
 
-    assert manager.update_contact(updated_contact) == True
+    # Assert update_contact method returns True
+    assert manager.update_contact(contact_to_update.contact_id, dummy_update) == True
+
     found_contact = manager.get_contact_by_id(contact_to_update.contact_id)
-    assert found_contact == updated_contact
+    assert found_contact == contact_to_update
 
 
 @pytest.mark.parametrize(
