@@ -52,3 +52,13 @@ class Contact(BaseModel):
         except EmailNotValidError as e:
             print(f"Error: {e}")
             return False
+
+
+class UpdateContact(BaseModel):
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    email: Optional[str] = None
+    phone: Optional[str] = None
+    company: Optional[str] = None
+    industry: Optional[str] = None
+    notes: Optional[str] = None
