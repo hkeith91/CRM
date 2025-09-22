@@ -39,6 +39,18 @@ def dummy_list():
     ]
 
 
+@pytest.fixture
+def dummy_update():
+    return {
+        "first_name": "Jonathan",
+        "last_name": None,
+        "email": None,
+        "company": "Updated Company",
+        "industry": "Updated Industry",
+        "notes": None,
+    }
+
+
 def test_contacts_list_initializes_to_empty():
     manager = ContactManager()
 
@@ -83,6 +95,15 @@ def test_get_contact_by_id_returns_none_if_not_found(dummy_list: List[Contact]):
     found_contact = manager.get_contact_by_id(non_existent_id)
 
     assert found_contact == None
+
+
+def test_update_contact_returns_true_on_success(dummy_list: List[Contact]):
+    manager = ContactManager()
+    manager.contacts_list = dummy_list
+
+    assert manager.update_contact(updated_contact) == True
+    found_contact = manager.get_contact_by_id(contact_to_update.contact_id)
+    assert found_contact == updated_contact
 
 
 @pytest.mark.parametrize(
