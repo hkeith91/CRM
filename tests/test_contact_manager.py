@@ -83,3 +83,23 @@ def test_get_contact_by_id_returns_none_if_not_found(dummy_list: List[Contact]):
     found_contact = manager.get_contact_by_id(non_existent_id)
 
     assert found_contact == None
+
+
+@pytest.mark.parametrize(
+    "email, expected_result",
+    [
+        ("test@example.com", True),
+        ("john.doe123@sub.domain.co.uk", True),
+        ("valid_email@test-server.net", True),
+        ("invalid=email", False),
+        ("no-at-sign.com", False),
+        ("@missingusername.org", False),
+        ("name@domain_with_underscore.com", False),
+    ],
+)
+def test_check_valid_email(email, expected_result):
+    contact = Contact(
+        contact_id=str(uuid.uuid4()), first_name="Test", last_name="User", email=email
+    )
+
+    assert contact.check_valid_email() == expected_result
