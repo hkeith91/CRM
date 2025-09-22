@@ -47,7 +47,8 @@ class Contact(BaseModel):
         Returns True if valid, False otherwise.
         """
         try:
-            validate_email(self.email)
+            validate_email(self.email, check_deliverability=False)
             return True
-        except EmailNotValidError:
+        except EmailNotValidError as e:
+            print(f"Error: {e}")
             return False
