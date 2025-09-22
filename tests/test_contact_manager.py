@@ -7,7 +7,6 @@ import pytest
 
 # TODO: Add test for valid phone number and email
 # TODO: Add tests to test input validation
-# TODO: Refactor tests to use __eq__
 
 
 @pytest.fixture
@@ -73,3 +72,14 @@ def test_get_contact_by_id_returns_correct_contact(dummy_list: List[Contact]):
 
     assert len(found_contact.__dict__) == len(contact_to_find.__dict__)
     assert found_contact == contact_to_find
+
+
+def test_get_contact_by_id_returns_none_if_not_found(dummy_list: List[Contact]):
+    manager = ContactManager()
+    manager.contacts_list = dummy_list
+
+    non_existent_id = str(uuid.uuid4())
+
+    found_contact = manager.get_contact_by_id(non_existent_id)
+
+    assert found_contact == None
