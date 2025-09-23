@@ -5,7 +5,7 @@ import uuid
 import pytest
 
 
-# TODO: Add test for valid phone number and email
+# TODO: Add test for valid phone number
 # TODO: Add tests to test input validation
 
 
