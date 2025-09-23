@@ -1,25 +1,14 @@
-from app.models.contact import Contact
+from app.models.contact import Contact, UpdateContact
 
 
-# TODO: update contact by id
 # TODO: delete contact
+# TODO: Require email OR phone
 
 
 class ContactManager:
 
     def __init__(self):
         self.contacts_list = []
-
-    def find_contact(self, id_to_find: str):
-        found_contact = next(
-            (
-                contact
-                for contact in self.contacts_list
-                if contact.contact_id == id_to_find
-            ),
-            None,
-        )
-        return found_contact
 
     def create_contact(self, new_contact: Contact):
         """
@@ -38,10 +27,26 @@ class ContactManager:
         Finds a contact by their unique ID.
         Returns the Contact object if found, otherwise returns none.
         """
-        return self.find_contact(id_to_find)
+        found_contact = next(
+            (
+                contact
+                for contact in self.contacts_list
+                if contact.contact_id == id_to_find
+            ),
+            None,
+        )
+        return found_contact
 
-    def update_contact(self, contact_to_update_id: str):
-        found_contact = self.find_contact(contact_to_update_id)
+    def update_contact(self, contact_to_update_id: str, update_contact: UpdateContact):
+        found_contact = self.get_contact_by_id(contact_to_update_id)
 
-        if found_contact:
-            pass
+        if not found_contact:
+            print("Contact not found!")
+            return False
+        else:
+            updated_data = update_contact.model_dump(exclude_none=True)
+            updated_data.pop("contact_id", None)
+            for field, value in updated_data.items():
+                setattr(found_contact, field, value)
+
+            return True
